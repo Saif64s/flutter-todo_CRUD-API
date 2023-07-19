@@ -111,35 +111,53 @@ class _HomePageState extends State<HomePage> {
         ),
         replacement: RefreshIndicator(
           onRefresh: getAllTask,
-          child: ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              Map item = items[index];
-              final id = item["_id"];
-              return Dismissible(
-                background: Container(
-                  child: const Align(
-                      alignment: Alignment.centerRight,
-                      child: Icon(Icons.delete_forever)),
-                  color: Colors.red,
-                ),
-                direction: DismissDirection.endToStart,
-                key: ValueKey(item),
-                onDismissed: (direction) {
-                  deleteTask(id);
-                },
-                child: InkWell(
-                  onTap: () => navigateToEditPage(item),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TodoItem(
-                      index: index,
-                      item: item,
+          child: Visibility(
+            visible: items.isNotEmpty,
+            replacement: Center(
+              child: Column(
+                children: [
+                  Image.network(
+                      "https://cdni.iconscout.com/illustration/premium/thumb/product-is-empty-8044861-6430770.png?f=webp"),
+                  const Text(
+                    "No Tasks added yet",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                Map item = items[index];
+                final id = item["_id"];
+                return Dismissible(
+                  background: Container(
+                    child: const Align(
+                        alignment: Alignment.centerRight,
+                        child: Icon(Icons.delete_forever)),
+                    color: Colors.red,
+                  ),
+                  direction: DismissDirection.endToStart,
+                  key: ValueKey(item),
+                  onDismissed: (direction) {
+                    deleteTask(id);
+                  },
+                  child: InkWell(
+                    onTap: () => navigateToEditPage(item),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TodoItem(
+                        index: index,
+                        item: item,
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       ),
