@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import '../consts/uri.dart';
 
 class ApiCalls {
+  // GET
   static Future<List?> getTask() async {
     final uri = Uri.https(BASE_URL, 'v1/todos', {
       "page": "1",
@@ -20,6 +21,7 @@ class ApiCalls {
     return null;
   }
 
+  // DELETE
   static Future<bool> deleteTaskbyId(String id) async {
     final url = "https://api.nstack.in/v1/todos/$id";
     final uri = Uri.parse(url);
@@ -28,6 +30,7 @@ class ApiCalls {
     return response.statusCode == 200;
   }
 
+  // POST
   static Future<bool> createTask(Map body) async {
     // Submit data to the server
     final uri = Uri.https(BASE_URL, 'v1/todos');
@@ -42,6 +45,7 @@ class ApiCalls {
     return response.statusCode == 201;
   }
 
+  // UPDATE
   static Future<bool> updateTask(String id, Map body) async {
     // Submit data to the server
     final uri = Uri.parse("https://api.nstack.in/v1/todos/$id");

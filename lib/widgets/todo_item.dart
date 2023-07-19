@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TodoItem extends ConsumerWidget {
+class TodoItem extends StatelessWidget {
   const TodoItem({super.key, required this.index, required this.item});
   final int index;
   final Map item;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Card(
       elevation: 5,
       child: ListTile(
